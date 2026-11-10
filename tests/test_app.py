@@ -7,6 +7,14 @@ from starlette.testclient import TestClient
 import main
 
 
+def test_fasthtml_uses_writable_session_key_path_on_vercel(monkeypatch) -> None:
+    monkeypatch.setenv("VERCEL", "1")
+    assert main.fasthtml_key_file() == "/tmp/folingoo-fasthtml-sesskey"
+
+    monkeypatch.delenv("VERCEL")
+    assert main.fasthtml_key_file() == ".sesskey"
+
+
 def test_fast_html_serves_landing_page_and_assets() -> None:
     with TestClient(main.app) as client:
         homepage = client.get("/")

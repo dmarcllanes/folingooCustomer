@@ -37,7 +37,8 @@ Connect this repository to Vercel with the repository root (`./`) as the root
 directory and the **Python** framework preset. Do not set `main.py` as the root
 directory. `pyproject.toml` identifies `main:app` as the Python ASGI entrypoint;
 the Python app serves the landing and admin pages plus their assets, so no
-separate output directory is needed.
+separate output directory is needed. Vercel's app bundle is read-only, so
+FastHTML stores its internal session key in the writable `/tmp` directory.
 
 Add these project environment variables for Production (and Preview if you use
 preview deployments):

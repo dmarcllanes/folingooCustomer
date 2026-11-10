@@ -32,7 +32,18 @@ _mongo_client: MongoClient[dict[str, Any]] | None = None
 _mongo_index_ready = False
 _mongo_lock = threading.Lock()
 
-app, rt = fast_app(static_path=str(SITE_DIR), default_hdrs=False)
+
+def fasthtml_key_file() -> str:
+    if os.environ.get("VERCEL") == "1":
+        return "/tmp/folingoo-fasthtml-sesskey"
+    return ".sesskey"
+
+
+app, rt = fast_app(
+    static_path=str(SITE_DIR),
+    default_hdrs=False,
+    key_fname=fasthtml_key_file(),
+)
 
 
 def get_signup_collection() -> Collection[dict[str, Any]]:
