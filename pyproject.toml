@@ -1,0 +1,23 @@
+[project]
+name = "folingoo-customer"
+version = "0.1.0"
+description = "Folingoo beta signup website"
+requires-python = ">=3.12"
+dependencies = [
+    "python-fasthtml>=0.12.30",
+    "dnspython>=2.6.1",
+    "pymongo>=4.15.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=8.4.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.vercel]
+entrypoint = "main:app"
