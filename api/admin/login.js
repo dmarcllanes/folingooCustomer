@@ -1,5 +1,5 @@
 import {
-  adminPasswordMatches,
+  adminCredentialsMatch,
   createAdminSession,
   isAdminConfigured,
   setAdminSessionCookie,
@@ -20,9 +20,9 @@ export default function handler(request, response) {
     return;
   }
 
-  const password = request.body?.password;
-  if (!adminPasswordMatches(password)) {
-    response.status(401).json({ message: "The password is incorrect." });
+  const { username, password } = request.body ?? {};
+  if (!adminCredentialsMatch(username, password)) {
+    response.status(401).json({ message: "The username or password is incorrect." });
     return;
   }
 

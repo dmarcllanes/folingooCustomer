@@ -27,11 +27,13 @@ and run `vercel dev`:
 ```dotenv
 MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>/<database>
 MONGODB_DB=<database>
+ADMIN_USERNAME=<your-admin-username>
 ADMIN_PASSWORD=<long-random-admin-password>
 ADMIN_SESSION_SECRET=<random-secret-at-least-32-characters>
 ```
 
-`MONGODB_URI`, `ADMIN_PASSWORD`, and `ADMIN_SESSION_SECRET` are secrets.
+`MONGODB_URI`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`, and
+`ADMIN_SESSION_SECRET` are secrets.
 `MONGODB_DB` is the MongoDB database name and is not secret. Use a unique,
 strong admin password and generate the session secret with
 `openssl rand -base64 32`. Do not commit `.env.local` or share these secrets.
@@ -43,9 +45,9 @@ The included `vercel.json` publishes `site/`, and Vercel deploys
 `api/beta-signups.js` as `/api/beta-signups`. Add `MONGODB_URI` and
 `MONGODB_DB` to the Vercel project's environment variables for each environment
 you use. Configure the MongoDB deployment's network access and credentials so
-the Vercel function can connect. Also add `ADMIN_PASSWORD` and
-`ADMIN_SESSION_SECRET` as encrypted Vercel environment variables. Generate a
-different random session secret for production, for example with
+the Vercel function can connect. Also add `ADMIN_USERNAME`, `ADMIN_PASSWORD`,
+and `ADMIN_SESSION_SECRET` as encrypted Vercel environment variables. Generate
+a different random session secret for production, for example with
 `openssl rand -base64 32`, and use a long, unique admin password.
 
 The signup API accepts an email address, `ios` or `android`, and the required
@@ -57,13 +59,17 @@ does not send mail.
 
 ## Admin tester list
 
-Open `/admin.html` on the deployed site. The page requires the password set in
-`ADMIN_PASSWORD`; after sign-in it shows testers' email, device, and signup
-date, 50 records per page. Admin sessions use an HTTP-only, same-site cookie
+Open `/admin.html` on the deployed site. The page requires the username set in
+`ADMIN_USERNAME` and password set in `ADMIN_PASSWORD`; after sign-in it shows
+testers' email, device, and signup date, 50 records per page. Keep both
+credentials in Vercel environment variables, never in the frontend or GitHub.
+Admin sessions use an HTTP-only, same-site cookie
 that expires after eight hours. The session-signing key is
 `ADMIN_SESSION_SECRET` and must contain at least 32 bytes. Keep both
 admin values private and set them in Vercel's environment settings before
-signing in.
+signing in. `ADMIN_SESSION_SECRET` signs the expiring admin cookie so visitors
+cannot forge a session without the secret. Changing it invalidates existing
+admin sessions.
 
 ## Before publishing
 

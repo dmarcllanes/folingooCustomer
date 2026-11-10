@@ -1,4 +1,5 @@
 const loginForm = document.querySelector("#admin-login");
+const usernameInput = document.querySelector("#admin-username");
 const passwordInput = document.querySelector("#admin-password");
 const statusMessage = document.querySelector("#admin-status");
 const testerList = document.querySelector("#admin-list");
@@ -86,7 +87,10 @@ loginForm.addEventListener("submit", async (event) => {
     const response = await fetch("/api/admin/login", {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({ password: passwordInput.value }),
+      body: JSON.stringify({
+        username: usernameInput.value,
+        password: passwordInput.value,
+      }),
     });
     const result = await response.json();
 
@@ -95,6 +99,7 @@ loginForm.addEventListener("submit", async (event) => {
       return;
     }
 
+    usernameInput.value = "";
     passwordInput.value = "";
     await loadSignups();
   } catch {

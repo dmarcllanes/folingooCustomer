@@ -104,7 +104,7 @@ button { font: inherit; }
 .site-header { position: relative; z-index: 5; border-bottom: 1px solid rgba(29, 41, 38, .08); }
 .header-inner { width: min(1280px, calc(100% - 64px)); height: 86px; margin-inline: auto; display: flex; align-items: center; justify-content: space-between; }
 .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-size: 24px; font-weight: 800; letter-spacing: -.8px; }
-.brand img { width: 42px; height: 42px; border-radius: 13px; object-fit: cover; }
+.brand img { width: 42px; height: 42px; object-fit: contain; }
 .primary-nav { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 36px); }
 .primary-nav > a:not(.button) { color: #48534f; text-decoration: none; font-size: 14px; font-weight: 700; }
 .primary-nav > a:not(.button):hover, .footer-links a:hover { color: var(--coral-dark); }
@@ -345,7 +345,7 @@ h1, h2, h3, p { margin-top: 0; }
 .site-footer { padding-block: 29px; background: #f1efe8; }
 .footer-inner { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
 .footer-brand { gap: 8px; font-size: 19px; }
-.footer-brand img { width: 34px; height: 34px; border-radius: 10px; }
+.footer-brand img { width: 34px; height: 34px; object-fit: contain; }
 .footer-inner > p { margin: 0 auto 0 0; color: var(--muted); font-size: 12px; }
 .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
 .footer-links a { color: #56615b; font-size: 11px; font-weight: 700; text-decoration: none; }

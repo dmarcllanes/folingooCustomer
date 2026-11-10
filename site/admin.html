@@ -27,8 +27,10 @@
         </div>
 
         <form class="admin-login" id="admin-login">
+          <label for="admin-username">Admin username</label>
+          <input id="admin-username" name="username" type="text" autocomplete="username" maxlength="1024" required>
           <label for="admin-password">Admin password</label>
-          <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+          <input id="admin-password" name="password" type="password" autocomplete="current-password" maxlength="1024" required>
           <button class="button button-coral" type="submit">Sign in</button>
         </form>
 

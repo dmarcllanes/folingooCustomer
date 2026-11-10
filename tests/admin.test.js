@@ -10,6 +10,7 @@ import {
   isValidAdminSession,
 } from "../lib/admin-session.js";
 
+const testUsername = "test-admin";
 const testPassword = "a-long-test-admin-password";
 const testSecret = "test-session-secret-that-is-at-least-32-characters";
 
@@ -32,8 +33,10 @@ function createResponse() {
 
 async function withAdminEnvironment(callback) {
   const previousPassword = process.env.ADMIN_PASSWORD;
+  const previousUsername = process.env.ADMIN_USERNAME;
   const previousSecret = process.env.ADMIN_SESSION_SECRET;
   const previousNodeEnv = process.env.NODE_ENV;
+  process.env.ADMIN_USERNAME = testUsername;
   process.env.ADMIN_PASSWORD = testPassword;
   process.env.ADMIN_SESSION_SECRET = testSecret;
   process.env.NODE_ENV = "production";
@@ -44,6 +47,11 @@ async function withAdminEnvironment(callback) {
       delete process.env.ADMIN_PASSWORD;
     } else {
       process.env.ADMIN_PASSWORD = previousPassword;
+    }
+    if (previousUsername === undefined) {
+      delete process.env.ADMIN_USERNAME;
+    } else {
+      process.env.ADMIN_USERNAME = previousUsername;
     }
     if (previousSecret === undefined) {
       delete process.env.ADMIN_SESSION_SECRET;
@@ -58,15 +66,21 @@ async function withAdminEnvironment(callback) {
   }
 }
 
-test("admin login rejects an incorrect password and signs in with a secure session cookie", async () => {
+test("admin login rejects incorrect credentials and signs in with a secure session cookie", async () => {
   await withAdminEnvironment(async () => {
     const invalidResponse = createResponse();
-    loginHandler({ method: "POST", body: { password: "wrong" } }, invalidResponse);
+    loginHandler({
+      method: "POST",
+      body: { username: testUsername, password: "wrong" },
+    }, invalidResponse);
     assert.equal(invalidResponse.statusCode, 401);
     assert.equal(invalidResponse.headers["Set-Cookie"], undefined);
 
     const response = createResponse();
-    loginHandler({ method: "POST", body: { password: testPassword } }, response);
+    loginHandler({
+      method: "POST",
+      body: { username: testUsername, password: testPassword },
+    }, response);
     assert.equal(response.statusCode, 200);
     assert.match(response.headers["Set-Cookie"], new RegExp(`^${ADMIN_SESSION_COOKIE}=`));
     assert.match(response.headers["Set-Cookie"], /HttpOnly; SameSite=Strict; Max-Age=28800; Secure/);
@@ -78,17 +92,35 @@ test("admin login rejects an incorrect password and signs in with a secure sessi
 
 test("admin login reports missing environment configuration", () => {
   const previousPassword = process.env.ADMIN_PASSWORD;
+  const previousUsername = process.env.ADMIN_USERNAME;
   const previousSecret = process.env.ADMIN_SESSION_SECRET;
   delete process.env.ADMIN_PASSWORD;
+  delete process.env.ADMIN_USERNAME;
   delete process.env.ADMIN_SESSION_SECRET;
   try {
     const response = createResponse();
-    loginHandler({ method: "POST", body: { password: "anything" } }, response);
+    loginHandler({
+      method: "POST",
+      body: { username: "anything", password: "anything" },
+    }, response);
     assert.equal(response.statusCode, 503);
   } finally {
     if (previousPassword !== undefined) process.env.ADMIN_PASSWORD = previousPassword;
+    if (previousUsername !== undefined) process.env.ADMIN_USERNAME = previousUsername;
     if (previousSecret !== undefined) process.env.ADMIN_SESSION_SECRET = previousSecret;
   }
+});
+
+test("admin login rejects a correct password with an incorrect username", async () => {
+  await withAdminEnvironment(async () => {
+    const response = createResponse();
+    loginHandler({
+      method: "POST",
+      body: { username: "wrong-user", password: testPassword },
+    }, response);
+    assert.equal(response.statusCode, 401);
+    assert.equal(response.headers["Set-Cookie"], undefined);
+  });
 });
 
 test("admin sessions reject expired, altered, and overlong tokens", async () => {
