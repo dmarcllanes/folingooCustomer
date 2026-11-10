@@ -1,0 +1,14 @@
+{
+  "name": "folingoo-beta-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "mongodb": "^6.19.0"
+  }
+}
