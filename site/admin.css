@@ -1,0 +1,32 @@
+.admin-page { min-height: 100vh; background: var(--paper); }
+.admin-main { width: min(900px, calc(100% - 40px)); margin: 0 auto; padding: 32px 0 64px; }
+.admin-brand { margin-bottom: 28px; }
+.admin-card { padding: clamp(22px, 5vw, 42px); border: 1px solid var(--line); border-radius: 20px; background: var(--white); box-shadow: 0 14px 40px rgba(29, 41, 38, .07); }
+.admin-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.admin-heading .eyebrow { margin-bottom: 8px; }
+.admin-heading h1 { margin-bottom: 22px; font-size: clamp(34px, 6vw, 48px); line-height: 1.1; letter-spacing: -1.6px; }
+.admin-login { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 10px 14px; max-width: 520px; }
+.admin-login label { grid-column: 1 / -1; margin-bottom: -7px; font-weight: 800; }
+.admin-login input { width: 100%; min-height: 48px; padding: 10px 12px; border: 1px solid #c9d2cd; border-radius: 9px; color: var(--ink); background: white; font: inherit; }
+.admin-status { min-height: 24px; margin: 16px 0 0; color: #9c3327; font-weight: 700; }
+.admin-count { color: var(--muted); font-size: 14px; }
+.admin-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+.admin-table-wrap table { width: 100%; border-collapse: collapse; text-align: left; }
+.admin-table-wrap th, .admin-table-wrap td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.admin-table-wrap th { color: var(--green-dark); background: #f0f3ed; font-size: 12px; letter-spacing: .4px; }
+.admin-table-wrap td { overflow-wrap: anywhere; font-size: 14px; }
+.admin-table-wrap tr:last-child td { border-bottom: 0; }
+.admin-pagination { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 18px; }
+.admin-pagination .button, .admin-logout { min-height: 40px; font-size: 13px; }
+.admin-pagination button:disabled { cursor: not-allowed; opacity: .5; }
+[hidden] { display: none !important; }
+
+@media (max-width: 520px) {
+  .admin-main { width: min(100% - 28px, 900px); padding-top: 20px; }
+  .admin-login { grid-template-columns: 1fr; }
+  .admin-login label { grid-column: 1; }
+  .admin-login .button { justify-self: start; }
+  .admin-pagination { gap: 9px; }
+  .admin-pagination .button { padding-inline: 13px; }
+  .admin-table-wrap th, .admin-table-wrap td { padding: 10px 8px; font-size: 12px; }
+}

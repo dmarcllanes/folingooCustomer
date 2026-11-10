@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#f7f5ef">
+    <title>Beta testers · Folingoo</title>
+    <link rel="icon" type="image/png" href="assets/fb-orb.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <script src="admin.js" defer></script>
+  </head>
+  <body class="admin-page">
+    <main class="admin-main">
+      <a class="brand admin-brand" href="/" aria-label="Folingoo home">
+        <img src="assets/fb-orb.png" alt="" width="42" height="42">
+        <span>folingoo</span>
+      </a>
+      <section class="admin-card" aria-labelledby="admin-title">
+        <div class="admin-heading">
+          <div>
+            <p class="eyebrow">Private beta dashboard</p>
+            <h1 id="admin-title">Beta testers</h1>
+          </div>
+          <button class="button button-dark admin-logout" id="admin-logout" type="button" hidden>Sign out</button>
+        </div>
+
+        <form class="admin-login" id="admin-login">
+          <label for="admin-password">Admin password</label>
+          <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+          <button class="button button-coral" type="submit">Sign in</button>
+        </form>
+
+        <p class="admin-status" id="admin-status" role="status" aria-live="polite"></p>
+
+        <div class="admin-list" id="admin-list" hidden>
+          <p class="admin-count" id="admin-count" aria-live="polite"></p>
+          <div class="admin-table-wrap">
+            <table>
+              <thead>
+                <tr><th scope="col">Email</th><th scope="col">Device</th><th scope="col">Signed up</th></tr>
+              </thead>
+              <tbody id="admin-signups"></tbody>
+            </table>
+          </div>
+          <nav class="admin-pagination" aria-label="Tester list pages">
+            <button class="button button-dark" id="admin-previous" type="button">Previous</button>
+            <span id="admin-page" aria-live="polite"></span>
+            <button class="button button-dark" id="admin-next" type="button">Next</button>
+          </nav>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
