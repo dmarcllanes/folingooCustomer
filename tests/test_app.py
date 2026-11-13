@@ -29,6 +29,19 @@ def test_fast_html_serves_landing_page_and_assets() -> None:
     assert "font-family: Nunito" in stylesheet.text
 
 
+def test_privacy_page_is_served_and_linked_from_home() -> None:
+    with TestClient(main.app) as client:
+        homepage = client.get("/")
+        privacy = client.get("/privacy")
+
+    assert privacy.status_code == 200
+    assert "Privacy at Folingoo" in privacy.text
+    assert "mailto:dandigital1688@gmail.com" in privacy.text
+    assert 'href="/privacy"' in homepage.text
+    assert "mailto:dandigital1688@gmail.com" in homepage.text
+    assert "[NEEDS CONFIRMATION: support email]" not in homepage.text
+
+
 def test_parse_signup_normalizes_valid_signup() -> None:
     signup, error = main.parse_signup(
         {"email": "  TEST@Example.com ", "device": "ios", "contactConsent": "yes"}

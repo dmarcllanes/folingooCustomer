@@ -225,6 +225,11 @@ def get_home() -> FileResponse:
     return FileResponse(SITE_DIR / "index.html")
 
 
+@rt("/privacy")
+def get_privacy() -> FileResponse:
+    return FileResponse(SITE_DIR / "privacy.html")
+
+
 @rt("/admin")
 def get_admin() -> FileResponse:
     return FileResponse(SITE_DIR / "admin.html")
