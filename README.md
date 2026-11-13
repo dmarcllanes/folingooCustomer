@@ -69,10 +69,9 @@ existing sessions.
 
 - The support email (`dandigital1688@gmail.com`) is temporary. Replace it in
   `site/index.html` and `site/privacy.html` when a permanent address is ready.
-- The privacy page (`/privacy`, `site/privacy.html`) still has
-  `[NEEDS CONFIRMATION]` placeholders for the effective date, retention
-  periods, app data processors, and deletion process. Fill these in before
-  treating it as a final policy.
+- The privacy page (`/privacy`, `site/privacy.html`) lists only confirmed
+  facts. It does not yet state an effective date, retention periods, app data
+  processors, or a deletion timeline; add these once they are confirmed.
 - Review the product and privacy wording against the current app and actual
   data-handling practices.
 
