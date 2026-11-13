@@ -37,6 +37,7 @@ def test_privacy_page_is_served_and_linked_from_home() -> None:
     assert privacy.status_code == 200
     assert "Privacy at Folingoo" in privacy.text
     assert "mailto:dandigital1688@gmail.com" in privacy.text
+    assert "NEEDS CONFIRMATION" not in privacy.text
     assert 'href="/privacy"' in homepage.text
     assert "mailto:dandigital1688@gmail.com" in homepage.text
     assert "[NEEDS CONFIRMATION: support email]" not in homepage.text
