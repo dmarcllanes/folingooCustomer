@@ -67,10 +67,12 @@ existing sessions.
 
 ## Before publishing
 
-- Replace `[NEEDS CONFIRMATION: support email]` with the approved support
-  contact.
-- Confirm and publish the retention and deletion-request details shown next to
-  the signup form. The marked wording is not final privacy text.
+- The support email (`dandigital1688@gmail.com`) is temporary. Replace it in
+  `site/index.html` and `site/privacy.html` when a permanent address is ready.
+- The privacy page (`/privacy`, `site/privacy.html`) still has
+  `[NEEDS CONFIRMATION]` placeholders for the effective date, retention
+  periods, app data processors, and deletion process. Fill these in before
+  treating it as a final policy.
 - Review the product and privacy wording against the current app and actual
   data-handling practices.
 
